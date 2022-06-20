@@ -1,0 +1,37 @@
+/*
+ * https://www.tutorialspoint.com/javaexamples/jdbc_dbconnection.htm
+ * 
+ * create database demodb;
+ * use demodb;
+ * create table estudante (MATRICULA varchar(10)not null, NOME varchar(30), CURSO VARCHAR(30));
+ * 
+ * Como conectar em um banco de dados.
+ * 
+ */
+
+import java.sql.*;
+ 
+public class MyDbConnect
+{
+	public static void main(String[] args)
+	{
+		int colunas = 0;
+		
+		try
+		{
+			Connection con = DriverManager.getConnection ("jdbc:mysql://localhost:3306/demoDb","root", "aluno");
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery ("SELECT * FROM estudante");
+			
+			while (rs.next())
+			{
+				colunas++;
+			}
+			
+			System.out.println("Existem "+ colunas + " registros nesta tabela");
+		} catch(SQLException e)
+		{
+			System.out.println("Ocorreu uma excessao SQL: " + e);
+		}
+	}
+}
